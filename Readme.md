@@ -119,8 +119,8 @@ function FileUpload() {
                     Upload
                 </button>
             <hr />
-            {/* displaying received image*/}
-            {data.path && <img src={data.path} alt={data.name} />}
+            {/* displaying received video*/}
+            {data.path && <video src={data.path} autoPlay controls />}
             </div>
         </div>
     );
