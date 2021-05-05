@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react';
 import axios from 'axios';
+
 function FileUpload() {
     const [file, setFile] = useState(''); // storing the uploaded file   
      // storing the recived file from backend
@@ -9,7 +10,6 @@ function FileUpload() {
     const handleChange = (e) => {
         setProgess(0)
         const file = e.target.files[0]; // accesing file
-        console.log(file);
         setFile(file); // storing file
     }
     const uploadFile = () => {
@@ -28,6 +28,16 @@ function FileUpload() {
             })
         }).catch(err => console.log(err))
     }
+
+    const showResult = (path) => {
+        if(path)
+            switch(path.split('.')[1]){
+                case 'jpg': case 'jpeg': case 'png': case 'bmp': case 'gif': return <img src={path} alt="img data" />;
+                case 'mp4': case 'mpg': case 'webm': case 'mov': case '3gp': return <video src={path} autoPlay controls />;
+                default: return <img src={path} alt="img data"/>;
+            }
+    }
+
     return (
         <div>
             <div className="file-upload">
@@ -38,9 +48,8 @@ function FileUpload() {
                 <button onClick={uploadFile} className="upbutton">                   
                     Upload
                 </button>
-                <hr />
-                {/* displaying received video*/}
-                {data.path && <video src={data.path} autoPlay controls />}
+                <hr />    
+                {showResult(data.path)}
             </div>
         </div>
     );
